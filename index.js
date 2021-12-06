@@ -1,9 +1,7 @@
 const   express             =       require('express'),
         mongoose            =       require('mongoose')
-
 const app = express();
-const mongoose = require('mongoose');
-
+// Connection to Mongoose
 const url = 'mongodb://127.0.0.1:27017/aegis';
 
 const connectDB = async () => {

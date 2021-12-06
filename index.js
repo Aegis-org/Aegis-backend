@@ -1,8 +1,9 @@
-const express = require('express');
+const   express             =       require('express'),
+        mongoose            =       require('mongoose'),
+        passport            =       require('passport'),
+        path                =       require('path');
+
 const app = express();
-const mongoose = require('mongoose');
-const passport = require('passport');
-const path = require('path')
 
 const url = 'mongodb://127.0.0.1:27017/aegis';
 

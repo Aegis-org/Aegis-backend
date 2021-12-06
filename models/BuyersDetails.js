@@ -7,7 +7,7 @@ const BuyersSchema = new mongoose.Schema(
     {
         firstname: String,
         lastName: String,
-        midlle: String,
+        middle: String,
         username: String,
         validIdentity: String,
         nin: Number,

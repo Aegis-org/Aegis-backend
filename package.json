@@ -6,8 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "auto":"nodemon",
-    "database":"mongod"
+    "auto": "nodemon",
+    "dev": "nodemon index.js",
+    "database": "mongod"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
   "homepage": "https://github.com/0tuedon/Aegis-backend#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "mongoose": "^6.0.14"
+    "mongoose": "^6.0.14",
+    "nodemon": "^2.0.15"
   }
 }

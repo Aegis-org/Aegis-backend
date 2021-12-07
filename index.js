@@ -1,4 +1,8 @@
-const express = require('express');
+const   express             =       require('express'),
+        mongoose            =       require('mongoose'),
+        passport            =       require('passport'),
+        path                =       require('path');
+
 const app = express();
 const mongoose = require('mongoose');
 const path = require('path')

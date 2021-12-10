@@ -5,6 +5,33 @@ const express = require('express'),
 	connectDB = require('./db/connect');
 
 const app = express();
+<<<<<<< HEAD
+=======
+const mongoose = require('mongoose');
+const path = require('path')
+app.set('view engine', 'ejs')
+
+//passport
+const passport = require('passport')
+const bodyParser = require('body-parser')
+const session = require('express-session')
+const LocalStrategy = require('passport-local')
+const connectEnsureLogin = require('connect-ensure-login')
+
+const url = 'mongodb://127.0.0.1:27017/aegis';
+
+const connectDB = async () => {
+	try {
+		await mongoose.connect(url, {
+			useNewUrlParser: true,
+			useUnifiedTopology: true,
+		});
+		console.log(`MongoDB Connected: ${url}`);
+	} catch (err) {
+		console.error(err);
+	}
+};
+>>>>>>> 1bf5d33216faff9ba6ec4f9c47cd86f6c30e67d7
 
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyparser.json());
@@ -18,6 +45,7 @@ app.get('/', async (req, res) => {
 app.post('/api/user/signup', (req, res) => {
 	const newUser = new User(req.body);
 
+<<<<<<< HEAD
 	User.find(
 		{ email: newUser.email, username: newUser.username },
 		function (err, user) {
@@ -44,6 +72,13 @@ app.post('/api/user/signup', (req, res) => {
 		}
 	);
 });
+=======
+
+app.get('/', (req, res) => {
+	res.render(path.join(__dirname, 'aigis/index'))
+})
+>>>>>>> 1bf5d33216faff9ba6ec4f9c47cd86f6c30e67d7
+
 
 app.listen(8080, () => {
 	console.log('Backend App running on port 8080 Aieges');

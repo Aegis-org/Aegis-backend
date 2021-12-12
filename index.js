@@ -1,7 +1,9 @@
-const   express             =       require('express'),
-        mongoose            =       require('mongoose'),
-        passport            =       require('passport'),
-        path                =       require('path');
+const express = require('express'),
+	bodyparser = require('body-parser'),
+	cookieparser = require('cookie-parser'),
+	User = require('./models/UserDetails'),
+	connectDB = require('./db/connect'),
+	apiRoute = require('./routes')
 
 const app = express();
 const mongoose = require('mongoose');
@@ -29,14 +31,25 @@ const connectDB = async () => {
 	}
 };
 
+const connectEnsureLogin = require('connect-ensure-login');
+
 connectDB();
 
+app.use(express.urlencoded({ extended: false }));
+app.use(bodyparser.json());
+app.use(cookieparser());
+
+// ======= USER SIGN UP ========
+app.use(apiRoute)
 
 app.get('/', (req, res) => {
 	res.render(path.join(__dirname, 'aigis/index'))
 })
 
 
+
 app.listen(8080, () => {
 	console.log('Backend App running on port 8080 Aieges');
 });
+
+

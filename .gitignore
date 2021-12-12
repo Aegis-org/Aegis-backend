@@ -4,11 +4,14 @@ node_modules/
 # This File Pops out from no where
 .ionide/
 
-# Incase any of the contributors uses npm this will prevent the package-lock from being pushed to the Repo
+# Incase any of the contributors uses npm or pnpm this will prevent the package-lock/pnpm-lock from being pushed to the Repo
 package-lock.json
+pnpm-lock.yaml
 
 # This uses the yarn Package manager also prevents the yarn lock from being pushed
 yarn.lock
 
+# THis uses the yarn error package manager prevents other people from seeing the error log
+yarn-error.log
 # This is were we will keep our secret files(api key,mongodb) we do not want that exposed
 .env

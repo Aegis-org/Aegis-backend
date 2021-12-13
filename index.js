@@ -1,12 +1,9 @@
-require('dotenv').config()
-const 	express 			= 	require('express'),
-		bodyparser 			= 	require('body-parser'),
-		cookieparser 		= 	require('cookie-parser'),
-		User 				= 	require('./models/UserDetails'),
-		connectDB 			= 	require('./db/connect'),
-		apiRoute 			= 	require('./routes'),
-		config 				=	require('./config/axios-config')
-
+const express = require('express'),
+	bodyparser = require('body-parser'),
+	cookieparser = require('cookie-parser'),
+	User = require('./models/UserDetails'),
+	connectDB = require('./db/connect'),
+	apiRoute = require('./routes')
 
 const app = express();
 const mongoose = require('mongoose');
@@ -48,6 +45,8 @@ app.use(apiRoute)
 app.get('/api/docs', (req, res) => {
 	res.render(path.join(__dirname, 'aigis/index'))
 })
+
+app.use(express.static(path.join(__dirname, 'public')))
 
 
 

@@ -1,9 +1,12 @@
-const express = require('express'),
-	bodyparser = require('body-parser'),
-	cookieparser = require('cookie-parser'),
-	User = require('./models/UserDetails'),
-	connectDB = require('./db/connect'),
-	apiRoute = require('./routes')
+require('dotenv').config()
+const 	express 			= 	require('express'),
+		bodyparser 			= 	require('body-parser'),
+		cookieparser 		= 	require('cookie-parser'),
+		User 				= 	require('./models/UserDetails'),
+		connectDB 			= 	require('./db/connect'),
+		apiRoute 			= 	require('./routes'),
+		config 				=	require('./config/axios-config')
+
 
 const app = express();
 const mongoose = require('mongoose');

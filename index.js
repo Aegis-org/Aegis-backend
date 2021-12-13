@@ -19,21 +19,21 @@ const connectEnsureLogin = require('connect-ensure-login')
 
 const url = 'mongodb://127.0.0.1:27017/aegis';
 
-const connectDB = async () => {
-	try {
-		await mongoose.connect(url, {
-			useNewUrlParser: true,
-			useUnifiedTopology: true,
-		});
-		console.log(`MongoDB Connected: ${url}`);
-	} catch (err) {
-		console.error(err);
-	}
-};
+// const connectDB = async () => {
+// 	try {
+// 		await mongoose.connect(url, {
+// 			useNewUrlParser: true,
+// 			useUnifiedTopology: true,
+// 		});
+// 		console.log(`MongoDB Connected: ${url}`);
+// 	} catch (err) {
+// 		console.error(err);
+// 	}
+// };
 
-const connectEnsureLogin = require('connect-ensure-login');
+// const connectEnsureLogin = require('connect-ensure-login');
 
-connectDB();
+// connectDB();
 
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyparser.json());
@@ -42,7 +42,7 @@ app.use(cookieparser());
 // ======= USER SIGN UP ========
 app.use(apiRoute)
 
-app.get('/', (req, res) => {
+app.get('/api/docs', (req, res) => {
 	res.render(path.join(__dirname, 'aigis/index'))
 })
 

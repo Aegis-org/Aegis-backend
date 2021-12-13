@@ -1,77 +1,37 @@
-require('dotenv').config()
-const 	express 			= 	require('express'),
-		bodyparser 			= 	require('body-parser'),
-		cookieparser 		= 	require('cookie-parser'),
-		User 				= 	require('./models/UserDetails'),
-		connectDB 			= 	require('./db/connect'),
-		apiRoute 			= 	require('./routes'),
-		config 				=	require('./config/axios-config')
-
+require('dotenv').config();
+const express = require('express'),
+	bodyparser = require('body-parser'),
+	cookieparser = require('cookie-parser'),
+	User = require('./models/UserDetails'),
+	connectDB = require('./db/connect'),
+	apiRoute = require('./routes'),
+	config = require('./config/axios-config');
 
 const app = express();
-<<<<<<< HEAD
-=======
 const mongoose = require('mongoose');
-const path = require('path')
-app.set('view engine', 'ejs')
+const path = require('path');
+app.set('view engine', 'ejs');
 
 //passport
-const passport = require('passport')
-const bodyParser = require('body-parser')
-const session = require('express-session')
-const LocalStrategy = require('passport-local')
+const passport = require('passport');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const LocalStrategy = require('passport-local');
 const connectEnsureLogin = require('connect-ensure-login');
 
 connectDB();
->>>>>>> a01b6bf2220403f728f92c9869cd3ed288279fb3
 
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 app.use(cookieparser());
 
 // ======= USER SIGN UP ========
-<<<<<<< HEAD
-app.post('/api/user/signup', (req, res) => {
-	const newUser = new User(req.body);
-
-	User.find(
-		{ email: newUser.email, username: newUser.username },
-		function (err, user) {
-			if (user.email) {
-				return res
-					.status(400)
-					.json({ auth: false, message: 'email already exists' });
-			} else if (user.username) {
-				return res
-					.status(400)
-					.json({ auth: false, message: 'username already exists' });
-			}
-
-			newUser.save((err, doc) => {
-				if (err) {
-					console.log(err);
-					return res.status(400).json({ success: false });
-				}
-				res.status(200).json({
-					success: true,
-					user: doc,
-				});
-			});
-		}
-	);
-});
-=======
-app.use(apiRoute)
+app.use(apiRoute);
 
 app.get('/', (req, res) => {
-	res.render(path.join(__dirname, 'aigis/index'))
-})
-
-
->>>>>>> a01b6bf2220403f728f92c9869cd3ed288279fb3
+	res.render(path.join(__dirname, 'aigis/index'));
+});
 
 app.listen(8080, () => {
 	console.log('Backend App running on port 8080 Aieges');
 });
-
-

@@ -7,12 +7,12 @@ const UserSchema = new mongoose.Schema({
 	firstName: {
 		type: String,
 		trim: true,
-		required: ['true', 'first_name is required'],
+		required: ['true', 'first name is required'],
 	},
 	lastName: {
 		type: String,
 		trim: true,
-		required: ['true', 'last_name is required'],
+		required: ['true', 'last name is required'],
 	},
 	username: {
 		type: String,
@@ -41,7 +41,6 @@ const UserSchema = new mongoose.Schema({
 		required: ['true', 'password cannot be less than 8 characters'],
 		minlength: 8,
 	},
-
 });
 
 UserSchema.pre('save', async function () {

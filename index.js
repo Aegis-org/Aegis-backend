@@ -37,7 +37,7 @@ app.post('/api/user/signup', (req, res) => {
 					return res.status(400).json({ success: false });
 				}
 				res.status(200).json({
-					succes: true,
+					success: true,
 					user: doc,
 				});
 			});

@@ -16,24 +16,8 @@ const bodyParser = require('body-parser')
 const session = require('express-session')
 const LocalStrategy = require('passport-local')
 const connectEnsureLogin = require('connect-ensure-login')
-
-const url = 'mongodb://127.0.0.1:27017/aegis';
-
-// const connectDB = async () => {
-// 	try {
-// 		await mongoose.connect(url, {
-// 			useNewUrlParser: true,
-// 			useUnifiedTopology: true,
-// 		});
-// 		console.log(`MongoDB Connected: ${url}`);
-// 	} catch (err) {
-// 		console.error(err);
-// 	}
-// };
-
-// const connectEnsureLogin = require('connect-ensure-login');
-
-// connectDB();
+// RUNS THE CONNECTION TO THE MONGODB SERVER 
+connectDB();
 
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyparser.json());
@@ -42,7 +26,7 @@ app.use(cookieparser());
 // ======= USER SIGN UP ========
 app.use(apiRoute)
 
-app.get('/api/docs', (req, res) => {
+app.get('/', (req, res) => {
 	res.render(path.join(__dirname, 'aigis/index'))
 })
 

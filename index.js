@@ -17,20 +17,21 @@ const session = require('express-session')
 const LocalStrategy = require('passport-local')
 const connectEnsureLogin = require('connect-ensure-login')
 // RUNS THE CONNECTION TO THE MONGODB SERVER 
-connectDB();
 
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')))
 app.use(bodyparser.json());
 app.use(cookieparser());
-
+connectDB();
 // ======= USER SIGN UP ========
-app.use(apiRoute)
-
 app.get('/', (req, res) => {
 	res.render('index')
 })
+app.use(apiRoute)
 
-app.use(express.static(path.join(__dirname, 'public')))
+
+
+
 
 
 

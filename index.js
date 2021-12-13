@@ -27,7 +27,7 @@ app.use(cookieparser());
 app.use(apiRoute)
 
 app.get('/', (req, res) => {
-	res.render(path.join(__dirname, 'aigis/index'))
+	res.render('index')
 })
 
 app.use(express.static(path.join(__dirname, 'public')))

@@ -94,7 +94,7 @@ Router.put('/api/users/edit',(req,res)=>{
 
     };
     // A LOGIC TO UPDATE THE USER NIN FROM THE DATABASE
-    const updateLogic = ()=>{User.findOneAndUpdate({ username: userdetails?.username }, { nin: req.body.number }, (err, updated) => {
+    const updateLogic = ()=>{User.findOneAndUpdate({ email: userdetails?.email }, { nin: req.body.number }, (err, updated) => {
         if (err) {
             res.status(401), json({ login: false, message: "Login to Make this request" })
         }

@@ -29,7 +29,8 @@ app.get('/', (req, res) => {
 })
 app.use(apiRoute)
 
-app.listen(process.env.PORT, () => {
+
+app.listen(8080, () => {
 	console.log('Backend App running on port 8080 Aieges');
 });
 

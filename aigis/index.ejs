@@ -4,10 +4,31 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
     <title>Aigis Home</title>
 </head>
 <body>
-    <h1>Welcome to Aigis</h1>
-    <p>Car verification made easy.</p>
+    <h1>Aigis</h1>
+
+    <div class="content">
+        <p>/api/users/signup</p>
+        <span>Method: POST</span>
+        <i>- The signup endpoint creates a new user. This endpoint takes in an objet containing the email, username and password of the user.The user might decide to link their immediately or later.</i>
+    </div>
+    <div class="content">
+        <p>/api/users/login</p>
+        <span>Method: POST</span>
+        <i>- The endpoint logs an existing user. This endpoint accepts an object containing the email and password.</i>
+    </div>
+    <div class="content">
+        <p>/api/users/logout</p>
+        <span>Method: POST</span>
+        <i>- This endpoint logs out a logged in user.</i>
+    </div>
+    <div class="content">
+        <p>/api/users/edit</p>
+        <span>Method: POST</span>
+        <i>- The endpoint edit/updates the details of an existing user.</i>
+    </div>
 </body>
 </html>

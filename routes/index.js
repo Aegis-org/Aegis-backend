@@ -126,7 +126,7 @@ Router.put('/api/users/edit', (req, res) => {
 		.catch((err) => console.error('error:' + err));
 });
 
-// See all vehicle details uploaded by a particular user
+// find all user vehicles details
 Router.get('/api/user/:username/vehicles', (req, res) => {
 	let foundUserVehicle = User.find({ name: req.params.username }).populate(
 		'vehicle'

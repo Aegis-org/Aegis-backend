@@ -19,7 +19,7 @@ const connectEnsureLogin = require('connect-ensure-login')
 // RUNS THE CONNECTION TO THE MONGODB SERVER 
 
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static('public'))
 app.use(bodyparser.json());
 app.use(cookieparser());
 connectDB();
@@ -29,13 +29,7 @@ app.get('/', (req, res) => {
 })
 app.use(apiRoute)
 
-
-
-
-
-
-
-app.listen(8080, () => {
+app.listen(process.env.PORT, () => {
 	console.log('Backend App running on port 8080 Aieges');
 });
 

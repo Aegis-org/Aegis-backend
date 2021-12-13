@@ -26,8 +26,7 @@ const UserSchema = new mongoose.Schema({
 	},
 	nin: {
 		type: Number,
-		trim: true,
-		required: ['true', 'nin is required'],
+		trim: false,
 	},
 	email: {
 		type: String,

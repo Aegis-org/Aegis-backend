@@ -2,11 +2,10 @@ const express = require('express'),
 	bodyparser = require('body-parser'),
 	cookieparser = require('cookie-parser'),
 	User = require('./models/UserDetails'),
-	connectDB = require('./db/connect');
+	connectDB = require('./db/connect'),
+	apiRoute = require('./routes')
 
 const app = express();
-<<<<<<< HEAD
-=======
 const mongoose = require('mongoose');
 const path = require('path')
 app.set('view engine', 'ejs')
@@ -31,57 +30,26 @@ const connectDB = async () => {
 		console.error(err);
 	}
 };
->>>>>>> 1bf5d33216faff9ba6ec4f9c47cd86f6c30e67d7
+
+const connectEnsureLogin = require('connect-ensure-login');
+
+connectDB();
 
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 app.use(cookieparser());
 
-app.get('/', async (req, res) => {
-	res.sendFile(path.join(__dirname, 'aigis/index.html'));
-});
-
 // ======= USER SIGN UP ========
-app.post('/api/user/signup', (req, res) => {
-	const newUser = new User(req.body);
-
-<<<<<<< HEAD
-	User.find(
-		{ email: newUser.email, username: newUser.username },
-		function (err, user) {
-			if (user.email) {
-				return res
-					.status(400)
-					.json({ auth: false, message: 'email already exists' });
-			} else if (user.username) {
-				return res
-					.status(400)
-					.json({ auth: false, message: 'username already exists' });
-			}
-
-			newUser.save((err, doc) => {
-				if (err) {
-					console.log(err);
-					return res.status(400).json({ success: false });
-				}
-				res.status(200).json({
-					succes: true,
-					user: doc,
-				});
-			});
-		}
-	);
-});
-=======
+app.use(apiRoute)
 
 app.get('/', (req, res) => {
 	res.render(path.join(__dirname, 'aigis/index'))
 })
->>>>>>> 1bf5d33216faff9ba6ec4f9c47cd86f6c30e67d7
+
 
 
 app.listen(8080, () => {
 	console.log('Backend App running on port 8080 Aieges');
 });
 
-connectDB();
+

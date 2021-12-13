@@ -126,18 +126,11 @@ Router.put('/api/users/edit', (req, res) => {
 		.catch((err) => console.error('error:' + err));
 });
 
-    // A LOGIC TO UPDATE THE USER NIN FROM THE DATABASE
-    const updateLogic = ()=>{User.findOneAndUpdate({ email: userdetails?.email }, { nin: req.body.number }, (err, updated) => {
-        if (err) {
-            res.status(401), json({ login: false, message: "Login to Make this request" })
-        }
-        else if (updated) {
-            res.status(201).json({ edited: true, message: 'Nin Updated' })
-        }
-        else {
-            res.status(401).json({ edited: false, message: 'Error Occured Somewhere' })
-        }
-    })
-}
-
+// find all user vehicles details
+Router.get('/api/user/:username/vehicles', (req, res) => {
+	let foundUserVehicle = User.find({ name: req.params.username }).populate(
+		'vehicle'
+	);
+	res.json(foundUserVehicle);
+});
 module.exports = Router;

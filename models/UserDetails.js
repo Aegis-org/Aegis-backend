@@ -28,7 +28,8 @@ const UserSchema = new mongoose.Schema({
 		type: Number,
 		trim: false,
 		minlength:10,
-		maxlength:10
+		maxlength:10,
+		unique: true,
 	},
 	email: {
 		type: String,
@@ -41,6 +42,11 @@ const UserSchema = new mongoose.Schema({
 		required: ['true', 'password cannot be less than 8 characters'],
 		minlength: 8,
 	},
+	verified: {
+		type: Boolean,
+		default: false,
+	},
+	vehicles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Vehicle' }],
 });
 
 UserSchema.pre('save', async function () {

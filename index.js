@@ -25,7 +25,7 @@ connectDB();
 // ======= USER SIGN UP ========
 app.use(apiRoute);
 
-app.get('/api/docs', (req, res) => {
+app.get('/', (req, res) => {
 	res.render(path.join(__dirname, 'aigis/index'));
 });
 

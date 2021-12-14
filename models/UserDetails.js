@@ -27,6 +27,8 @@ const UserSchema = new mongoose.Schema({
 	nin: {
 		type: Number,
 		trim: false,
+		minlength:10,
+		maxlength:10,
 		unique: true,
 	},
 	email: {

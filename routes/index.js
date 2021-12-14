@@ -133,5 +133,4 @@ Router.get('/api/user/:username/vehicles', (req, res) => {
 	);
 	res.json(foundUserVehicle);
 });
-
 module.exports = Router;

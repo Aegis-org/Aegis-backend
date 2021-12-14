@@ -23,7 +23,7 @@ app.use(bodyparser.json());
 app.use(cookieparser());
 connectDB();
 // ======= USER SIGN UP ========
-app.use(apiRoute);
+app.use(apiRoute); 
 
 app.get('/', (req, res) => {
 	res.render(path.join(__dirname, 'aigis/index'));

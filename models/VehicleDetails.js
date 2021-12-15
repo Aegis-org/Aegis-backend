@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const VehicleSchema = mongoose.Schema(
 	{
@@ -6,6 +6,7 @@ const VehicleSchema = mongoose.Schema(
 			type: String,
 			unique: true,
 			required: ['true', 'the vehicle number is required'],
+			maxlength: 9,
 		},
 		vehicleName: {
 			type: String,
@@ -14,20 +15,20 @@ const VehicleSchema = mongoose.Schema(
 		vehicleColor: {
 			type: String,
 		},
-		verfied:{
-			type:Boolean,
-			default:false
+		vehicleMakeYear: {
+			type: Number,
+			required: ['true', 'vehicle make year is required'],
 		},
 		owner: {
-			type: Schema.Types.ObjectId,
+			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User',
 		},
 	},
 	{
 		timestamps: true,
 	}
-);
+)
 
-const VehicleModel = mongoose.model('Seller', VehicleSchema);
+const VehicleModel = mongoose.model('Seller', VehicleSchema)
 
-export default VehicleModel;
+module.exports = VehicleModel

@@ -22,60 +22,54 @@ Router.use(
 );
 
 // Post Sigup  Route TO SIGNUP A USER I.E CREATE A USER AND ADD IN THE DATABASE
-Router.post('/api/users/signup', (req, res) => {
+Router.post('/api/users/signup', async (req, res) => {
 	const newUser = new User(req.body);
-	User.find(
-		{ email: newUser.email, username: newUser.username },
-		function (err, user) {
-			if (user.email) {
-				return res
-					.status(400)
-					.json({ auth: false, message: 'email already exists' });
-			} else if (user.username) {
-				return res
-					.status(400)
-					.json({ auth: false, message: 'username already exists' });
-			}
-
-			newUser.save((err, doc) => {
-				if (err) {
-					console.log(err);
-					return res.status(400).json({ success: false });
-				}
-				res.status(200).json({
-					success: true,
-					user: doc,
-				});
-			});
+	try {
+		const foundUser = await User.findOne({ email: newUser.email, username: newUser.username })
+		if (foundUser) {
+			res.status(401).json({ error: true, message: "Username  or Email Already Exist " })
 		}
-	);
-});
-
-// Login Route  TO LOGIN AN ALREADY CREATED USER IF NO USER NO LOGIN
-
-Router.post('/api/users/login', async (req, res, next) => {
-	const loginUser = req.body;
-	const user = await User.findOne({ username: loginUser.username });
-	if (user) {
-		const validPassword = await bcrypt.compare(
-			loginUser.password,
-			user.password
-		);
-		if (validPassword) {
-			session = req.session;
-			session.user = user;
-
-			res.status(200).json({
-				login: true,
-				message: 'Successfully Loggedin',
-			});
-		} else {
-			res.status(400).json({ login: false, message: 'Invalid Password' });
+		else {
+			const user = await newUser.save();
+			res.status(200).json({ error: false, message: "User Created Successfully" })
 		}
-	} else {
-		res.status(401), json({ login: false, message: 'Invalid Username' });
+	}
+	catch {
+		res.status(400).json({ message: "An Error Occured Try Again" })
 	}
 });
+
+
+// Login Route  TO LOGIN AN ALREADY CREATED USER IF NO USER NO LOGIN
+Router.post('/api/users/login', (req, res, next) => {
+	const loginUser = req.body;
+	User.findOne(loginUser['email'].includes('@') ? { email: loginUser?.email } : { username: loginUser?.email },
+		async (err, found) => {
+			if (found === null) {
+				res.status(400).json({ login: false, message: 'Invalid Username' });
+			}
+			else {
+				const validPassword = await bcrypt.compare(
+					loginUser.password,
+					found.password
+				);
+
+				if (validPassword) {
+					session = req.session;
+					session.user = found;
+
+					res.status(200).json({
+						login: true,
+						message: 'Successfully Loggedin',
+					});
+				} else {
+					res.status(400).json({ login: false, message: 'Invalid Password' });
+				}
+			}
+		})
+}
+
+);
 
 // TO DELETE SESSION CREATED WHEN LOGGED IN
 Router.post('/api/users/logout', (req, res) => {
@@ -84,54 +78,68 @@ Router.post('/api/users/logout', (req, res) => {
 });
 
 // A PUT REQUEST TO UPDATE INFORMATION FROM THE DATABASE
-Router.put('/api/users/edit', (req, res) => {
-	session = req.session;
-	userdetails = session.user;
-	let url = process.env.BVNAPI;
-	let options = {
-		method: 'POST',
-		body: JSON.stringify(req.body),
-		headers: {
-			'Content-Type': 'application/json',
-			'x-api-key': process.env.TESTAPIKEY,
-		},
-	};
-	// A LOGIC TO UPDATE THE USER NIN FROM THE DATABASE
-	const updateLogic = () => {
-		User.findOneAndUpdate(
-			{ username: userdetails?.username },
-			{ nin: req.body.number },
-			(err, updated) => {
-				if (err) {
-					res.status(401),
-						json({ login: false, message: 'Login to Make this request' });
-				} else if (updated) {
-					res.status(201).json({ edited: true, message: 'Nin Updated' });
-				} else {
-					res.status(401).json({
-						edited: false,
-						message: 'Error Occured Somewhere',
-					});
-				}
+Router.put('/api/users/edit', async (req, res) => {
+	// For a user to edit Nin and Bvn 
+	let session = req.session
+	let user = req.session?.user
+	let body = req.body
+	let updating = { nin: req.body.nin, bvn: req.body.bvn, nextofkinNin: req.body.nextofkinNin }
+	try {
+		if (user) {
+			const response = await fetch(process.env.NINAPI, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'x-api-key': process.env.TESTAPIKEY
+				},
+				body:JSON.stringify({number:parseInt(req.body.nin) })
+			})
+			
+			const json = await response.json()
+
+			
+			if (json.status) {
+				const updated = await User.findOneAndUpdate({ username: user.username }, updating, { returnOriginal: false })
+				console.log(json)
+				return res.status(201).json({ verified: true, message: `${json.detail} and Updated` })
 			}
-		);
-	};
+				
+			else if(!json.status){
+				return res.status(401).json({verified:false, message:'Your NIN Cant be verified'})
+			}
+		}
 
-	//    Setup fetch request
-	fetch(url, options)
-		.then((res) => res.json())
-		.then((json) => {
-			updateLogic();
-		})
-		.catch((err) => console.error('error:' + err));
-});
+		else if(!user) {
+			console.log("No User")
+			return res.status(401).json({ error: true, message: "You cannot edit because you are not logged in" })
+		}
+	}
+	catch (err) {
+		console.log(err)
+		return res.sendStatus(501).json({ error: true, message: "Error Occured" })
+	}
+})
 
+//    Setup fetch request
+
+
+// Route to get the current logged in user details 
+Router.post('/api/users/details', (req, res) => {
+	const session = req.session
+	const user = session.user
+	if (!user) {
+		res.status(401).json({ message: `There's Currently no logged in user` })
+	}
+	else {
+		res.status(200).json({ user: user })
+	}
+})
 // find all user vehicles details
 Router.get('/api/user/:username/vehicles', (req, res) => {
 	let foundUserVehicle = User.find({ name: req.params.username }).populate(
 		'vehicle'
 	);
 	res.json(foundUserVehicle);
-});
+})
 
-module.exports = Router;
+module.exports = Router

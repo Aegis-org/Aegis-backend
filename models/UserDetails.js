@@ -39,7 +39,7 @@ const UserSchema = new mongoose.Schema({
 		minlength: 8
 	},
 	nextofkinNin: {
-		type:Number,
+		type: String,
 		minlength:10,
 	},
 	nin: {
@@ -51,6 +51,7 @@ const UserSchema = new mongoose.Schema({
 	bvn:
 	{
 		type:Number
+
 	},
 	verified:
 	{

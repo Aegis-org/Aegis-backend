@@ -238,6 +238,39 @@
                 </pre>
             </div>
         </div>
+
+        <!-- get user by id-->
+        <div class="content">
+            <p>GET <span>/api/users/:id</span></p>
+            <i>- This endpoint gets a user by their id.</i>
+            <div class="body">
+                <p>Example request <span>JavaScript - fetch</span></p>
+                <pre>
+<span>fetch</span>(''https://aigis-backend-api.herokuapp.com/api/users/:id')
+        .then(res => res.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error))
+                </pre>
+                <p>Example response</p>
+                <pre>
+{
+    "user": {
+        "firstName": "John",
+        "lastName": "Doe",
+        "username": "j.doe",
+        "email": "johndoe@example.com",
+        "phoneNumber": "+23480123456789",
+        "password": "Password_1234%$@",
+        "nin": "12345678901",
+        "verified": false,
+        "vehicles": [],
+        "_id": "1234567890abcdef",
+        "__v": 0
+    }
+}
+                </pre>
+            </div>
+        </div>
     </main>
 </body>
 </html>

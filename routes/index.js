@@ -134,12 +134,25 @@ Router.post('/api/users/details', (req, res) => {
 		res.status(200).json({ user: user })
 	}
 })
+
+
 // find all user vehicles details
 Router.get('/api/user/:username/vehicles', (req, res) => {
 	let foundUserVehicle = User.find({ name: req.params.username }).populate(
 		'vehicle'
 	);
 	res.json(foundUserVehicle);
+})
+
+
+// find user by id
+Router.get('/api/users/:id', (req, res, id) => {
+	const user = User.findById(id)
+	if(!user) {
+		res.status(404).json({ message: `User${id} not found`})
+	} else {
+		res.status(200).json({ user: user})
+	}
 })
 
 module.exports = Router

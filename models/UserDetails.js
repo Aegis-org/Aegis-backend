@@ -22,14 +22,6 @@ const UserSchema = new mongoose.Schema({
 	validIdentity: {
 		type: String,
 		trim: true,
-		required: ['true', 'validIdentity is required'],
-	},
-	nin: {
-		type: Number,
-		trim: false,
-		minlength:10,
-		maxlength:10,
-		unique: true,
 	},
 	email: {
 		type: String,
@@ -37,12 +29,32 @@ const UserSchema = new mongoose.Schema({
 		trim: true,
 		unique: true,
 	},
+	phoneNumber: {
+		type:String,
+		required:['true','Phone Number is Required']
+	},
 	password: {
 		type: String,
 		required: ['true', 'password cannot be less than 8 characters'],
-		minlength: 8,
+		minlength: 8
 	},
-	verified: {
+	nextofkinNin: {
+		type: String,
+		minlength:10,
+	},
+	nin: {
+		type: String,
+		trim: false,
+		unique: false,
+		default: 0
+	},
+	bvn:
+	{
+		type:Number
+
+	},
+	verified:
+	{
 		type: Boolean,
 		default: false,
 	},

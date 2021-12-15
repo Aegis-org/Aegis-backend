@@ -5,30 +5,272 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="shortcut icon" href="/assets/" type="image/x-icon">
     <title>Aigis Home</title>
 </head>
 <body>
-    <h1>Aigis</h1>
+    <header>
+        <img src="/assets/logo.png" alt="aigis logo">
+    </header>
 
-    <div class="content">
-        <p>/api/users/signup</p>
-        <span>Method: POST</span>
-        <i>- The signup endpoint creates a new user. This endpoint takes in an objet containing the email, username and password of the user.The user might decide to link their immediately or later.</i>
-    </div>
-    <div class="content">
-        <p>/api/users/login</p>
-        <span>Method: POST</span>
-        <i>- The endpoint logs an existing user. This endpoint accepts an object containing the email and password.</i>
-    </div>
-    <div class="content">
-        <p>/api/users/logout</p>
-        <span>Method: POST</span>
-        <i>- This endpoint logs out a logged in user.</i>
-    </div>
-    <div class="content">
-        <p>/api/users/edit</p>
-        <span>Method: POST</span>
-        <i>- The endpoint edit/updates the details of an existing user.</i>
-    </div>
+    <main>
+        <div class="content notes">
+            <h1>Introduction</h1>
+            <p>This API enables a developer integrate the Aigis apllication into their code base.</p>
+        </div>
+        <div class="content notes">
+            <h1>Overview</h1>
+            <p>The API enables you to:
+                <ul>
+                    <li>create user accounts</li>
+                    <li>access/login into a user account</li>
+                    <li>logout of a session</li>
+                    <li>edit/update user details</li>
+                    <li>add cars to the gallery collection (for sellers only)</li>
+                    <li>verify cars details</li>
+                    <li>verify user details with </li>
+                </ul>
+                Other features are in Beta stage at the moment.
+            </p>
+        </div>
+        <div class="content notes">
+            <h1>Authentication</h1>
+            <p>The API currently has no user authentication/authorization protocol. This may, however, change in the future.</p>
+        </div>
+        <div class="content notes">
+            <h1>Response Codes</h1>
+            <p>Status Codes</p>
+            <div class="codes">
+                <span>200</span>
+                <i>OK/Sucess, message: Account created, logged in successfully.)</i>
+            </div>
+            <div class="codes">
+                <span>201</span>
+                <i>OK/Sucess, message: User details updated)</i>
+            </div>
+            <div class="codes">
+                <span>400</span>
+                <i>Bad Request, message: Missing/nvalid parameters)</i>
+            </div>
+            <div class="codes">
+                <span>404</span>
+                <i>Not found, message: The page your looking is does not exist)</i>
+            </div>
+            <div class="codes">
+                <span>500</span>
+                <i>Server eror, message: Please hold on while we fix this)</i>
+            </div>
+        </div>
+        <div class="content notes">
+            <h1>Rate Limit</h1>
+            <p>Request rate limit has not yet been determined.</p>
+        </div>
+
+        <!-- sin up -->
+        <div class="content">
+            <p>POST <span>/api/users/signup</span></p>
+            <i>- The signup endpoint creates a new user. This endpoint takes in an objet containing the email, username and password of the user.The user might decide to link their immediately or later.</i>
+            <div class="body">
+                <p>Example request <span>JavaScript - fetch</span></p>
+                <pre>
+<span>fetch</span>('https://aigis-backend-api.herokuapp.com/api/users/signup', {
+    <span>method</span>: 'POST',
+    <span>headers</span>: {
+        'Content-Type': 'application/json'
+    },
+    <span>body</span>: JSON.stringify({
+        "firstName": "John",
+        "lastName": "Doe",
+        "username": "j.doe",
+        "email": "johndoe@example.com",
+        "phoneNumber": "+23480123456789",
+        "password": "Password_1234%$@"
+        })
+    }).then(res => res.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error)) 
+                </pre>
+
+                <p>Example reponse</p>
+                    <pre>
+{
+    "success": true,
+    "user": {
+        "firstName": "John",
+        "lastName": "Doe",
+        "username": "j.doe",
+        "email": "johndoe@example.com",
+        "phoneNumber": "+23480123456789",
+        "password": "Password_1234%$@",
+        "nin": "12345678901",
+        "verified": false,
+        "vehicles": [],
+        "_id": "1234567890abcdef",
+        "__v": 0
+    }
+}
+                    </pre>
+            </div>
+        </div>
+
+        <!-- log in -->
+        <div class="content">
+            <p>POST<span>/api/users/login</span></p>
+            <i>- The endpoint logs an existing user. This endpoint accepts an object containing the email and password.</i>
+            <div class="body">
+                <p>Example request <span>JavaScript - fetch</span></p>
+                <pre>
+<span>fetch</span>('https://aigis-backend-api.herokuapp.com/api/users/login', {
+    <span>method</span>: 'POST',
+    <span>headers</span>: {
+        'Content-Type': 'application/json'
+        },
+    <span>body</span>: JSON.stringify({
+        "usernamw": "j.doe",
+        "password": "Password_1234%$@"
+        }),
+    <span>redirect</span>: "follow"
+    }).then(res => res.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error))
+                </pre>
+                <p>Example reponse</p>
+                <pre>
+{
+    "login": true,
+    "message": "successfully logged in"
+}
+                </pre>
+            </div>
+        </div>
+
+        <!-- log out -->
+        <div class="content">
+            <p>POST<span>/api/users/logout</span></p>
+            <i>- This endpoint logs a user from their current session.</i>
+            <div class="body">
+                <p>Example request <span>JavaScript - fetch</span></p>
+                <pre>
+<span>fetch</span>(''https://aigis-backend-api.herokuapp.com/api/users/logout',{
+    <span>method</span>: 'POST',
+    <span>body</span>: '',
+    <span>redirect</span>: follow
+    })
+                </pre>
+            </div>
+        </div>
+
+        <!-- edit/update -->
+        <div class="content">
+            <p>POST<span>/api/users/edit</span></p>
+            <i>- The endpoint edit/updates the details of an existing user.</i>
+            <div class="body">
+                <p>Example request <span>JavaScript - fetch</span></p>
+                <pre>
+<span>fetch</span>(''https://aigis-backend-api.herokuapp.com/api/users/edit',{
+    <span>method</span>: 'POST',
+    <span>headers</span>: {
+        'Content-Type': 'application/json'
+    },
+    <span>body</span>: JSON.stringify({
+        // items to be updated
+        }),
+    <span>redirect</span>: "follow"
+    }).then(res => res.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error))
+                    </pre>
+                <p>Example reponse</p>
+                <pre>
+{
+    "success": true,
+    "message": "Details updated"
+}
+                </pre>
+            </div>
+        </div>
+
+        <!-- user details -->
+        <div class="content">
+            <p>POST<span>/api/users/details</span></p>
+            <i>- The endpoint gets the details of a current logged in user's details.</i>
+            <div class="body">
+                <p>Example request <span>JavaScript - fetch</span></p>
+                <pre>
+<span>fetch</span>(''https://aigis-backend-api.herokuapp.com/api/users/details',{
+    <span>headers</span>: {
+        'Content-Type': 'application/json'
+    },
+    <span>body</span>: JSON.stringify({
+        //search criteria
+    })
+    }).then(res => res.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error))
+                </pre>
+                <p>Example response</p>
+                <pre>
+{
+    "username": "j.doe",
+    "verified": true
+}
+                </pre>
+            </div>
+        </div>
+
+        <!-- user vehicles -->
+        <div class="content">
+            <p>GET<span>/api/user/:username/vehicles</span></p>
+            <i>- The endpoint enables a buyer get all vehicles registered by a user using their username.</i>
+            <div class="body">
+                <p>Example request <span>JavaScript - fetch</span></p>
+                <pre>
+<span>fetch</span>(''https://aigis-backend-api.herokuapp.com/api/user/:username/vehicles').then(res => res.text())
+          .then(result => console.log(result))
+          .catch(error => console.log('error', error))
+                </pre>
+                <p>Example response</p>
+                <pre>
+{
+    "username": "j.doe",
+    "vehicles": []
+}
+                </pre>
+            </div>
+        </div>
+
+        <!-- get user by id-->
+        <div class="content">
+            <p>GET <span>/api/users/:id</span></p>
+            <i>- This endpoint gets a user by their id.</i>
+            <div class="body">
+                <p>Example request <span>JavaScript - fetch</span></p>
+                <pre>
+<span>fetch</span>(''https://aigis-backend-api.herokuapp.com/api/users/:id')
+        .then(res => res.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error))
+                </pre>
+                <p>Example response</p>
+                <pre>
+{
+    "user": {
+        "firstName": "John",
+        "lastName": "Doe",
+        "username": "j.doe",
+        "email": "johndoe@example.com",
+        "phoneNumber": "+23480123456789",
+        "password": "Password_1234%$@",
+        "nin": "12345678901",
+        "verified": false,
+        "vehicles": [],
+        "_id": "1234567890abcdef",
+        "__v": 0
+    }
+}
+                </pre>
+            </div>
+        </div>
+    </main>
 </body>
 </html>

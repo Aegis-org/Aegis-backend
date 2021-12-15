@@ -152,15 +152,22 @@ Router.post('/api/users/details', (req, res) => {
 		res.status(200).json({ user: user })
 	}
 })
-// find all user vehicle
-Router.get('/api/user/:username/vehicles', async (req, res) => {
-	try {
-		let foundUserVehicle = await User.find({
-			name: req.params.username,
-		}).populate('vehicle')
-		res.status(200).json(foundUserVehicle)
-	} catch (err) {
-		console.log(err)
+
+// find all user vehicles
+Router.get('/api/user/:username/vehicles', (req, res) => {
+	let foundUserVehicle = User.find({ name: req.params.username }).populate(
+		'vehicle'
+	)
+	res.json(foundUserVehicle)
+})
+
+// find user by id
+Router.get('/api/users/:id', (req, res, id) => {
+	const user = User.findById(id)
+	if (!user) {
+		res.status(404).json({ message: `User${id} not found` })
+	} else {
+		res.status(200).json({ user: user })
 	}
 })
 

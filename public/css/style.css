@@ -6,15 +6,28 @@
     padding: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     padding: 20px 30px;
     font-family: 'Roboto', sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Montserrat', sans-serif;
-    text-align: center;
+header {
+    padding: 10px 30px;
     margin-bottom: 50px;
+}
+
+main {
+    padding: 20px 30px;
+}
+
+main h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    color: #000;
 }
 
 .content {
@@ -22,15 +35,70 @@ h1, h2, h3, h4, h5, h6 {
     padding: 5px 10px;
     display: flex;
     flex-direction: column;
+    color: #d0a1db;
 }
 
-.content p {
+.content.notes {
+    color: #000;
+}
+
+.content .body {
+    padding: 10px 40px;
+    color: #000;
+}
+
+.content .body p {
+    margin-bottom: 10px;
+}
+
+.content .body pre {
+    width: fit-content;
+    background: #1f2937;
+    color: #e6bd74;
+    padding: 15px 30px;
+    margin-bottom: 30px;
+}
+
+.content .body pre span {
+    color: #f92672;
+}
+
+.content .body span {
+    color: #000;
+    background: transparent;
+    margin-bottom: 30px;
+}
+
+.content span {
     width: fit-content;
     background: #ddd;
-    padding: 5px 10px;
+    color: #000;
+    margin: 0 5px;
     font-family: monospace;
 }
 
 .content span, .content i {
     padding: 5px 15px;
+}
+
+.content i {
+    font-style: normal;
+    color: #000;
+}
+
+.content .codes {
+    margin: 10px 0;
+}
+
+.content ul {
+    list-style: none;
+}
+
+.content ul li {
+    margin: 5px 0;
+}
+
+.content ul li::before {
+    content: '-';
+    margin-right: 10px;
 }

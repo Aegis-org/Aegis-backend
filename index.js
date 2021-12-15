@@ -1,5 +1,4 @@
-
-require('dotenv').config();
+require('dotenv').config()
 const express = require('express'),
 	bodyparser = require('body-parser'),
 	cookieparser = require('cookie-parser'),
@@ -23,20 +22,16 @@ const session = require('express-session');
 const LocalStrategy = require('passport-local');
 const connectEnsureLogin = require('connect-ensure-login');
 
-
-
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static('public'))
 app.use(bodyparser.json());
 app.use(cookieparser());
 connectDB();
 // ======= USER SIGN UP ========
+app.use(apiRoute); 
 
 app.get('/', (req, res) => {
-	res.render('index')
 })
-app.use(apiRoute)
 
 app.listen(process.env.PORT, () => {
-	console.log('Backend App running on port 8080 Aieges');
 });

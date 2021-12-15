@@ -14,6 +14,10 @@ const VehicleSchema = mongoose.Schema(
 		vehicleColor: {
 			type: String,
 		},
+		verfied:{
+			type:Boolean,
+			default:false
+		},
 		owner: {
 			type: Schema.Types.ObjectId,
 			ref: 'User',

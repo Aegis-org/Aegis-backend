@@ -42,11 +42,38 @@ main h1 {
     color: #000;
 }
 
+.content .body {
+    padding: 10px 40px;
+    color: #000;
+}
+
+.content .body p {
+    margin-bottom: 10px;
+}
+
+.content .body pre {
+    width: fit-content;
+    background: #1f2937;
+    color: #e6bd74;
+    padding: 15px 30px;
+    margin-bottom: 30px;
+}
+
+.content .body pre span {
+    color: #f92672;
+}
+
+.content .body span {
+    color: #000;
+    background: transparent;
+    margin-bottom: 30px;
+}
+
 .content span {
     width: fit-content;
     background: #ddd;
     color: #000;
-    padding: 5px 0;
+    margin: 0 5px;
     font-family: monospace;
 }
 

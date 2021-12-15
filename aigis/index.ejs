@@ -5,30 +5,82 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="shortcut icon" href="/assets/" type="image/x-icon">
     <title>Aigis Home</title>
 </head>
 <body>
-    <h1>Aigis</h1>
+    <header>
+        <img src="/assets/logo.png" alt="aigis logo">
+    </header>
 
-    <div class="content">
-        <p>/api/users/signup</p>
-        <span>Method: POST</span>
-        <i>- The signup endpoint creates a new user. This endpoint takes in an objet containing the email, username and password of the user.The user might decide to link their immediately or later.</i>
-    </div>
-    <div class="content">
-        <p>/api/users/login</p>
-        <span>Method: POST</span>
-        <i>- The endpoint logs an existing user. This endpoint accepts an object containing the email and password.</i>
-    </div>
-    <div class="content">
-        <p>/api/users/logout</p>
-        <span>Method: POST</span>
-        <i>- This endpoint logs out a logged in user.</i>
-    </div>
-    <div class="content">
-        <p>/api/users/edit</p>
-        <span>Method: POST</span>
-        <i>- The endpoint edit/updates the details of an existing user.</i>
-    </div>
+    <main>
+        <div class="content notes" id="intro">
+            <h1>Introduction</h1>
+            <p>This API enables a developer integrate the Aigis apllication into their code base.</p>
+        </div>
+        <div class="content notes" id="overview">
+            <h1>Overview</h1>
+            <p>The API enables you to:
+                <ul>
+                    <li>create user accounts</li>
+                    <li>access/login into a user account</li>
+                    <li>logout of a session</li>
+                    <li>edit/update user details</li>
+                    <li>add cars to the gallery collection (for sellers only)</li>
+                    <li>verify cars details</li>
+                    <li>verify user details with </li>
+                </ul>
+                Other features are in Beta stage at the moment.
+            </p>
+        </div>
+        <div class="content notes" id="auth">
+            <h1>Authentication</h1>
+            <p>The API currently has no user authentication/authorization protocol. This may, however, change in the future.</p>
+        </div>
+        <div class="content notes" id="response">
+            <h1>Response Codes</h1>
+            <p>Status Codes</p>
+            <div class="codes">
+                <span>200</span>
+                <i>OK/Sucess, message: Account created, logged in successfully.)</i>
+            </div>
+            <div class="codes">
+                <span>201</span>
+                <i>OK/Sucess, message: User details updated)</i>
+            </div>
+            <div class="codes">
+                <span>400</span>
+                <i>Bad Request, message: Missing/nvalid parameters)</i>
+            </div>
+            <div class="codes">
+                <span>404</span>
+                <i>Not found, message: The page your looking is does not exist)</i>
+            </div>
+            <div class="codes">
+                <span>500</span>
+                <i>Server eror, message: Please hold on while we fix this)</i>
+            </div>
+        </div>
+        <div class="content notes" id="limit">
+            <h1>Rate Limit</h1>
+            <p>Request rate limit has not yet been determined.</p>
+        </div>
+        <div class="content" id="signup">
+            <p>POST <span>/api/users/signup</span></p>
+            <i>- The signup endpoint creates a new user. This endpoint takes in an objet containing the email, username and password of the user.The user might decide to link their immediately or later.</i>
+        </div>
+        <div class="content" id="login">
+            <p>POST<span>/api/users/login</span></p>
+            <i>- The endpoint logs an existing user. This endpoint accepts an object containing the email and password.</i>
+        </div>
+        <div class="content" id="logout">
+            <p>POST<span>/api/users/logout</span></p>
+            <i>- This endpoint logs out a logged in user.</i>
+        </div>
+        <div class="content" id="edit">
+            <p>POST<span>/api/users/edit</span></p>
+            <i>- The endpoint edit/updates the details of an existing user.</i>
+        </div>
+    </main>
 </body>
 </html>

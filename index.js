@@ -4,14 +4,12 @@ const express = require('express'),
 	cookieparser = require('cookie-parser'),
 	User = require('./models/UserDetails'),
 	connectDB = require('./db/connect'),
-
 	apiRoute = require('./routes'),
 	config = require('./config/axios-config');
-
-
 const app = express();
 const mongoose = require('mongoose');
 const path = require('path');
+
 app.set('view engine', 'ejs');
 
 //passport
@@ -28,11 +26,12 @@ app.use(bodyparser.json());
 app.use(cookieparser());
 connectDB();
 // ======= USER SIGN UP ========
-app.use(apiRoute); 
+app.use(apiRoute);
 
 app.get('/', (req, res) => {
-	res.render('index.ejs')
+	res.render("index.ejs");
 })
 
 app.listen(process.env.PORT, () => {
-});
+
+})

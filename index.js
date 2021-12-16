@@ -11,6 +11,11 @@ const mongoose = require('mongoose');
 const path = require('path');
 const cors = require("cors");
 
+
+const corsOrigins = {
+	origin: ['http://localhost:3000']
+}
+
 app.set('view engine', 'ejs');
 
 //passport
@@ -25,7 +30,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static('public'))
 app.use(bodyparser.json());
 app.use(cookieparser());
-app.use(cors())
+app.use(cors(corsOrigins))
 connectDB();
 // ======= USER SIGN UP ========
 app.use(apiRoute);

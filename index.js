@@ -9,6 +9,7 @@ const express = require('express'),
 const app = express();
 const mongoose = require('mongoose');
 const path = require('path');
+const cors = require("cors");
 
 app.set('view engine', 'ejs');
 
@@ -24,6 +25,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static('public'))
 app.use(bodyparser.json());
 app.use(cookieparser());
+app.use(cors())
 connectDB();
 // ======= USER SIGN UP ========
 app.use(apiRoute);

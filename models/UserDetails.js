@@ -58,6 +58,11 @@ const UserSchema = new mongoose.Schema({
 		type: Boolean,
 		default: false,
 	},
+	isSeller: 
+	{
+		type:Boolean,
+		default:false
+	},
 	vehicles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Vehicle' }],
 });
 
@@ -72,5 +77,5 @@ UserSchema.methods.comparePassword = async function (password) {
 	return await bcrypt.compare(password, this.password);
 };
 
-const UsersModel = mongoose.model('Buyer', UserSchema);
+const UsersModel = mongoose.model('Users', UserSchema);
 module.exports = UsersModel;

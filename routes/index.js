@@ -8,6 +8,7 @@ const expressSession = require('express-session')
 const axios = require('axios')
 const config = require('../config/axios-config')
 const { json } = require('body-parser')
+const IsloggedIn = require('../middleware/isLoggedIn')
 
 // IMPORT LOAD
 const fetch = (...args) =>
@@ -93,7 +94,6 @@ Router.put('/api/users/edit', async (req, res) => {
 	// For a user to edit Nin and Bvn
 	let session = req.session
 	let user = req.session?.user
-	let body = req.body
 	let updating = {
 		nin: req.body.nin,
 		bvn: req.body.bvn,
@@ -172,13 +172,24 @@ Router.get('/api/users/:id', (req, res, id) => {
 })
 
 // create new product
-Router.post('/api/user/create', async (req, res) => {
+Router.post('/api/user/create',IsloggedIn, async (req, res) => {
+	let currentUser = req.session.user
+	let newVehicle  = req.body
 	try {
-		let newUser = new Vehicle(req.body)
-		let savedUser = newUser.save()
-
-		res.status(200).json(savedUser)
+		const currentUserSchema = await User.findOne({username:currentUser.username})
+		if(currentUserSchema)
+		{
+			const vehicleCreated = await Vehicle.create({...newVehicle,owner:currentUserSchema})
+			console.log(vehicleCreated)
+			if(vehicleCreated)
+			{
+				await currentUserSchema.vehicles.push(vehicleCreated)
+				await currentUserSchema.save()
+				res.status(200).json({error:false, message:"Vehicle Successfully Created"})
+			}
+		}
 	} catch (err) {
+		console.log(err)
 		res.status(400).json({ message: 'Cannot create new vehicle' })
 	}
 })

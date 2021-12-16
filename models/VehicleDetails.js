@@ -6,7 +6,7 @@ const VehicleSchema = mongoose.Schema(
 			type: String,
 			unique: true,
 			required: ['true', 'the vehicle number is required'],
-			maxlength: 9,
+			minlength: 9,
 		},
 		vehicleName: {
 			type: String,
@@ -29,6 +29,6 @@ const VehicleSchema = mongoose.Schema(
 	}
 )
 
-const VehicleModel = mongoose.model('Seller', VehicleSchema)
+const VehicleModel = mongoose.model('Vehicle', VehicleSchema)
 
 module.exports = VehicleModel

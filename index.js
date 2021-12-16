@@ -31,6 +31,7 @@ connectDB();
 app.use(apiRoute); 
 
 app.get('/', (req, res) => {
+	res.render(path.join(__dirname, 'views/index.ejs'))
 })
 
 app.listen(process.env.PORT, () => {

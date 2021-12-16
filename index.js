@@ -33,5 +33,5 @@ app.get('/', (req, res) => {
 })
 
 app.listen(process.env.PORT, () => {
-
+	console.log(`THe app is running on PORT ${process.env.PORT}`)
 })

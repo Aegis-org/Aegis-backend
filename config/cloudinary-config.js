@@ -7,6 +7,7 @@ cloudinary.config({
 	cloud_name: process.env.CLOUD_NAME,
 	api_key: process.env.CLOUD_API_KEY,
 	secret_key: process.env.CLOUD_API_SECRET,
+	api_secret:process.env.CLOUD_API_SECRET,
 	secure: true,
 })
 

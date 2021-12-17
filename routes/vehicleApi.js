@@ -62,4 +62,16 @@ Router.post(
     }
 );
 
+
+Router.get("/",(req,res)=>{
+    let page = parseInt(req.query.page),
+        limit = 9 * page
+        offset = (page-1) * 9
+    Vehicle.paginate({}, {
+        offset: offset, limit: limit, sort: [['createdAt',-1]]
+    }, (err, result) => {
+        console.log(result)
+        res.send({ results: result.docs })
+    })
+})
 module.exports = Router

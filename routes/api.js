@@ -67,12 +67,13 @@ Router.post('/login', (req, res, next) => {
                     res.status(200).json({
                         login: true,
                         message: 'Successfully Loggedin',
+                        userDetails: found
                     });
                 } else {
                     res.status(400).json({
                         login: false,
                         message: 'Invalid Password',
-                        userDetails:found
+                    
                     });
                 }
             }

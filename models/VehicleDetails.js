@@ -10,7 +10,7 @@ const VehicleSchema = mongoose.Schema(
 			type: String,
 			unique: true,
 			required: ['true', 'the vehicle number is required'],
-			maxlength: 9,
+			minlength: 9,
 		},
 		vehicleName: {
 			type: String,

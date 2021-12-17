@@ -10,21 +10,17 @@ const app = express();
 const mongoose = require('mongoose');
 const path = require('path');
 const cors = require("cors");
-
-
 const corsOrigins = {
 	origin: ['http://localhost:3000']
 }
-
 app.set('view engine', 'ejs');
-
 //passport
-
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const LocalStrategy = require('passport-local');
 const connectEnsureLogin = require('connect-ensure-login');
+// Using the Packages  for the backend 
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static('public'))

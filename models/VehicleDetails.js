@@ -2,11 +2,15 @@ const mongoose = require('mongoose')
 
 const VehicleSchema = mongoose.Schema(
 	{
+		vehicleImage: {
+			type: String,
+			required: true,
+		},
 		vehicleNumber: {
 			type: String,
 			unique: true,
 			required: ['true', 'the vehicle number is required'],
-			minlength: 9,
+			maxlength: 9,
 		},
 		vehicleName: {
 			type: String,

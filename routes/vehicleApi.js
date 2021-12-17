@@ -10,7 +10,8 @@ const { json } = require('body-parser');
 const IsloggedIn = require('../middleware/isLoggedIn');
 const cloudinary = require('cloudinary').v2;
 
-
+const fetch = (...args) =>
+    import('node-fetch').then(({ default: fetch }) => fetch(...args));
 // Route to get the current logged in user details
 
 // find a particlular  user vehicles that the user posted
@@ -61,6 +62,39 @@ Router.post(
         }
     }
 );
+
+Router.get("/verify", async (req,res)=>{
+    const vin = req.query.vin
+    try{
+    const response = await fetch(process.env.VINAPI, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': process.env.TESTAPIKEY,
+        },
+        body:JSON.stringify({vehicle_number:vin})
+    });
+    const json = await response.json()
+    if(json)
+    {
+        if(req.session.user)
+        {
+            res.status(201).json({message:'Car details for verifcation',error:false, status:json.status,
+             details:json})
+        }
+        else{
+            res.status(201).json({message:'Car Details for verifciation', error:false, status:json.status})
+        }
+    }
+}
+catch (err)
+{
+    if(err)
+    {
+        res.status(400).json({error: true, message:"Something Went Wrong while trying to check for verification"})
+    }
+}
+})
 
 
 Router.get("/",(req,res)=>{

@@ -54,10 +54,7 @@ Router.post(
                 }
             }
         } catch (err) {
-
-            console.log(err.name)
-
-            if (err.name === 'MongoServerError') {
+            if (err.code === 11000) {
                 res.status(400).json({ message: `There's another Vehicle with this same VIN Number` })
             }
             res.status(400).json({ message: 'Cannot create new vehicle' });

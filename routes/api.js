@@ -78,7 +78,7 @@ Router.post('/login', (req, res, next) => {
                 }
             }
         }
-    );
+    ).populate('vehicles');
 });
 
 // TO DELETE SESSION CREATED WHEN LOGGED IN

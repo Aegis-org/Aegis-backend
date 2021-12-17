@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css" type="text/css">
-    <link rel="shortcut icon" href="/assets/" type="image/x-icon">
+    <link rel="shortcut icon" href="/assets/logo.png" type="image/x-icon">
     <title>Aigis Home</title>
 </head>
 <body>
@@ -151,7 +151,7 @@
             <div class="body">
                 <p>Example request <span>JavaScript - fetch</span></p>
                 <pre>
-<span>fetch</span>(''https://aigis-backend-api.herokuapp.com/api/users/logout',{
+<span>fetch</span>('https://aigis-backend-api.herokuapp.com/api/users/logout',{
     <span>method</span>: 'POST',
     <span>body</span>: '',
     <span>redirect</span>: follow
@@ -162,13 +162,13 @@
 
         <!-- edit/update -->
         <div class="content">
-            <p>POST<span>/api/users/edit</span></p>
+            <p>PUT<span>/api/users/edit</span></p>
             <i>- The endpoint edit/updates the details of an existing user.</i>
             <div class="body">
                 <p>Example request <span>JavaScript - fetch</span></p>
                 <pre>
-<span>fetch</span>(''https://aigis-backend-api.herokuapp.com/api/users/edit',{
-    <span>method</span>: 'POST',
+<span>fetch</span>('https://aigis-backend-api.herokuapp.com/api/users/edit',{
+    <span>method</span>: 'PUT',
     <span>headers</span>: {
         'Content-Type': 'application/json'
     },
@@ -197,7 +197,8 @@
             <div class="body">
                 <p>Example request <span>JavaScript - fetch</span></p>
                 <pre>
-<span>fetch</span>(''https://aigis-backend-api.herokuapp.com/api/users/details',{
+<span>fetch</span>('https://aigis-backend-api.herokuapp.com/api/users/details',{
+    <span>method</span>: 'POST',
     <span>headers</span>: {
         'Content-Type': 'application/json'
     },
@@ -225,7 +226,8 @@
             <div class="body">
                 <p>Example request <span>JavaScript - fetch</span></p>
                 <pre>
-<span>fetch</span>(''https://aigis-backend-api.herokuapp.com/api/user/:username/vehicles').then(res => res.text())
+<span>fetch</span>('https://aigis-backend-api.herokuapp.com/api/user/:username/vehicles')
+          .then(res => res.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error))
                 </pre>
@@ -246,7 +248,7 @@
             <div class="body">
                 <p>Example request <span>JavaScript - fetch</span></p>
                 <pre>
-<span>fetch</span>(''https://aigis-backend-api.herokuapp.com/api/users/:id')
+<span>fetch</span>('https://aigis-backend-api.herokuapp.com/api/users/:id')
         .then(res => res.text())
         .then(result => console.log(result))
         .catch(error => console.log('error', error))
@@ -259,14 +261,40 @@
         "lastName": "Doe",
         "username": "j.doe",
         "email": "johndoe@example.com",
-        "phoneNumber": "+23480123456789",
-        "password": "Password_1234%$@",
-        "nin": "12345678901",
         "verified": false,
-        "vehicles": [],
-        "_id": "1234567890abcdef",
-        "__v": 0
+        "vehicles": []
     }
+}
+                </pre>
+            </div>
+        </div>
+
+        <!-- create product -->
+        <div class="content">
+            <p>POST <span>/api/user/create</span></p>
+            <i>- This endpoint enables a user upload a vehicle. Details of the vehicle are to sent as objects in the body ,of the request</i>
+            <div class="body">
+                <p>Example request <span>JavaScript - fetch</span></p>
+                <pre>
+<span>fetch</span>('https://aigis-backend-api.herokuapp.com/api/user/create',{
+    <span>method</span>: 'POST',
+    <span>headers</span>: {
+        'Content-Type': 'application/json'
+    },
+    <span>body</span>: JSON.stringify({
+        "vehicleNumber": "LSD123LG"
+        "vehicleName": "Toyota Camry"
+        "vehicleColor": "Black"
+        "vehicleMakeYear": 2017
+        "owner": "j.doe"
+        })
+    })
+                </pre>
+                <p>Example response</p>
+                <pre>
+{
+    "success": true,
+    "message": "Vehicle added."
 }
                 </pre>
             </div>

@@ -162,11 +162,47 @@ Router.get('/api/users/:id', (req, res, id) => {
         res.status(200).json({ user: user });
     }
 });
+
 Router.get('/:username/vehicles', (req, res) => {
     let foundUserVehicle = User.find({ name: req.params.username }).populate(
         'vehicle'
     );
     res.json(foundUserVehicle);
 });
+
+// edit/update user details
+Router.put(
+    '/api/users/:id/edit',
+    IsloggedIn,
+    async (req, res, id) => {
+        const user = await User.findById(id)
+
+        try {
+            if(!user) {
+                res.status(400).json(`User ${id} not found`)
+            } else {
+                const { firstName, lastName, username, email, phoneNumber, password } = JSON.parse(req.body)
+    
+                const userData = {
+                    firstName: firstName || user.firstName,
+                    lastName: lastName || user.lastName,
+                    username: username || user.username,
+                    email: email || user.email,
+                    phoneNumber: phoneNumber || user.phoneNumber,
+                    password: password || user.password,
+                }
+    
+                const updateUserDetails = await User.updateOne(id, userData)
+                res.status(201).json(updateUserDetails)
+            }
+        } catch (err) {
+            console.log(err)
+            return res.sendStatus(501).json({
+                error: true,
+                message: 'Error occurred'
+            })
+        }
+    }
+)
 
 module.exports = Router

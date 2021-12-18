@@ -1,4 +1,5 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2')
 
 const VehicleSchema = mongoose.Schema(
 	{
@@ -10,7 +11,7 @@ const VehicleSchema = mongoose.Schema(
 			type: String,
 			unique: true,
 			required: ['true', 'the vehicle number is required'],
-			maxlength: 9,
+			minlength: 9,
 		},
 		vehicleName: {
 			type: String,
@@ -19,9 +20,31 @@ const VehicleSchema = mongoose.Schema(
 		vehicleColor: {
 			type: String,
 		},
+		engineNumber:
+		{
+			type: String,
+			required:['true', 'Engine Number Is Required']
+		},
+		vehicleType:
+		{
+			type: String,
+			required:['true','Vehicle Type is Required']
+		},
+		price:
+		{
+			type:Number,
+			required:['true','There has to be a Price']
+		},
+		fuel:{
+			type:String
+		},
 		vehicleMakeYear: {
 			type: Number,
 			required: ['true', 'vehicle make year is required'],
+		},
+		location:
+		{
+			type:String
 		},
 		owner: {
 			type: mongoose.Schema.Types.ObjectId,
@@ -32,7 +55,7 @@ const VehicleSchema = mongoose.Schema(
 		timestamps: true,
 	}
 )
-
+	mongoose.plugin(mongoosePaginate)
 const VehicleModel = mongoose.model('Vehicle', VehicleSchema)
 
 module.exports = VehicleModel

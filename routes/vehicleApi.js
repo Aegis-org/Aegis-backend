@@ -46,8 +46,7 @@ Router.post(
                     res.status(200).json({
                         error: false,
                         message: 'Vehicle Successfully Created',
-                        vehicleCreated,
-                        image: result.secure_url,
+                        vehicleCreated
                     });
                 }
                 else {
@@ -64,7 +63,7 @@ Router.post(
 );
 
 Router.get("/verify", async (req,res)=>{
-    const vin = req.query.vin
+    const vin = req.body.vin
     try{
     const response = await fetch(process.env.VINAPI, {
         method: 'POST',
@@ -91,6 +90,7 @@ catch (err)
 {
     if(err)
     {
+        console.log(err)
         res.status(400).json({error: true, message:"Something Went Wrong while trying to check for verification"})
     }
 }

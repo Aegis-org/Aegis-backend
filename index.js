@@ -11,7 +11,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const cors = require("cors");
 const corsOrigins = {
-	origin: ['http://localhost:3000']
+	origin: ['http://localhost:3000','https://aigisorg.netlify.app']
 }
 app.set('view engine', 'ejs');
 //passport

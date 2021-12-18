@@ -68,7 +68,7 @@
 
         <!-- sin up -->
         <div class="content">
-            <p>POST <span>/api/users/signup</span></p>
+            <p>POST <span>/signup</span></p>
             <i>- The signup endpoint creates a new user. This endpoint takes in an objet containing the email, username and password of the user.The user might decide to link their immediately or later.</i>
             <div class="body">
                 <p>Example request <span>JavaScript - fetch</span></p>
@@ -115,7 +115,7 @@
 
         <!-- log in -->
         <div class="content">
-            <p>POST<span>/api/users/login</span></p>
+            <p>POST<span>/login</span></p>
             <i>- The endpoint logs an existing user. This endpoint accepts an object containing the email and password.</i>
             <div class="body">
                 <p>Example request <span>JavaScript - fetch</span></p>
@@ -146,7 +146,7 @@
 
         <!-- log out -->
         <div class="content">
-            <p>POST<span>/api/users/logout</span></p>
+            <p>POST<span>/logout</span></p>
             <i>- This endpoint logs a user from their current session.</i>
             <div class="body">
                 <p>Example request <span>JavaScript - fetch</span></p>
@@ -160,9 +160,9 @@
             </div>
         </div>
 
-        <!-- edit/update -->
+        <!-- edit/update bvn/nin -->
         <div class="content">
-            <p>PUT<span>/api/users/edit</span></p>
+            <p>PUT<span>/edit</span></p>
             <i>- The endpoint edit/updates the details of an existing user.</i>
             <div class="body">
                 <p>Example request <span>JavaScript - fetch</span></p>
@@ -276,25 +276,114 @@
             <div class="body">
                 <p>Example request <span>JavaScript - fetch</span></p>
                 <pre>
-<span>fetch</span>('https://aigis-backend-api.herokuapp.com/api/user/create',{
+<span>fetch</span>('https://aigis-backend-api.herokuapp.com/create',{
     <span>method</span>: 'POST',
     <span>headers</span>: {
         'Content-Type': 'application/json'
     },
     <span>body</span>: JSON.stringify({
-        "vehicleNumber": "LSD123LG"
+        "vehicleNumber": "12345678901234xxxxxx12345678"
         "vehicleName": "Toyota Camry"
         "vehicleColor": "Black"
-        "vehicleMakeYear": 2017
-        "owner": "j.doe"
+        "vehicleMakeYear": 2017,
+        "vehicleImage": './path/to/image',
+        "price": 1000,
+        "fuel": "80L",
+        "engineNumber": ,
+        "mileage": "3000KM",
+        "location": "Lagos",
+        "vehicleType": "Sedan"
         })
     })
                 </pre>
                 <p>Example response</p>
                 <pre>
 {
+    "error": false,
+    "message": "Vehicle successfully created",
+    "vehicleCreated" {
+        "vehicleNumber": "12345678901234xxxxxx12345678"
+        "vehicleName": "Toyota Camry"
+        "vehicleColor": "Black"
+        "vehicleMakeYear": 2017,
+        "vehicleImage": './path/to/image',
+        "price": 1000,
+        "fuel": "80L",
+        "engineNumber": ,
+        "mileage": "3000KM",
+        "location": "Lagos",
+        "vehicleType": "Sedan"
+    }
+}
+                </pre>
+            </div>
+        </div>
+
+        <!-- edit/update user details -->
+        <div class="content">
+            <p>POST <span>/:username/edit</span></p>
+            <i>- This endpoint allows users edit/update their profile details.</i>
+            <div class="body">
+                <p>Example request <span>JavaScript - fetch</span></p>
+                <pre>
+<span>fetch</span>('https://aigis-backend-api.herokuapp.com/:username/edit',{
+    <span>method</span>: 'PUT',
+    <span>headers</span>: {
+        'Content-Type': 'application/json'
+    },
+    <span>body</span>: JSON.stringify({
+        "firstName",
+        "lastName",
+        "username",
+        "email",
+        "phoneNumber",
+        "password"
+        
+    })
+})
+                </pre>
+                <p>Example response</p>
+                <pre>
+{
     "success": true,
-    "message": "Vehicle added."
+    "message": "Details updated successfully",
+    "updatedUserDetails": {
+        "firstName",
+        "lastName",
+        "username",
+        "email",
+        "phoneNumber",
+        "password"
+    }
+}                    
+                </pre>
+            </div>
+        </div>
+
+        <!-- verify car details -->
+        <div class="content">
+            <p>POST <span>/verify</span></p>
+            <i>- This endpoint verifies if a car has been registered on the app</i>
+            <div class="body">
+                <p>Example request <span>JavaScript - fetch</span></p>
+                <pre>
+<span>fetch</span>: ('https://aigis-backend-api/herokuapp.com/verify',{
+    <span>method</span>: 'GET'
+    <span>headers</span>: {
+        'Content-Type': 'application/json',
+        'x-api-key': TESTAPIKEY,
+    },
+    <span>body</span>: JSON.stringify({
+        "vehicle_number": "vin"
+    })
+})
+                </pre>
+                <p>Example response</p>
+                <pre>
+{
+    "message": "This vehicle is verified",
+    "error": false,
+    "status": 200
 }
                 </pre>
             </div>

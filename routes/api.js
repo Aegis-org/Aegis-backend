@@ -172,8 +172,7 @@ Router.get('/:username/vehicles', (req, res) => {
 
 // edit/update user details
 Router.put(
-    '/api/users/:id/edit',
-    IsloggedIn,
+    '/:username/edit',
     async (req, res, id) => {
         const user = await User.findById(id)
 
@@ -192,8 +191,8 @@ Router.put(
                     password: password || user.password,
                 }
     
-                const updateUserDetails = await User.updateOne(id, userData)
-                res.status(201).json(updateUserDetails)
+                const updatedUserDetails = await User.updateOne(id, userData)
+                res.status(201).json({ success: true, message: "Detaills updated successfully" , updatedUserDetails })
             }
         } catch (err) {
             console.log(err)

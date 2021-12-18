@@ -46,8 +46,7 @@ Router.post(
                     res.status(200).json({
                         error: false,
                         message: 'Vehicle Successfully Created',
-                        vehicleCreated,
-                        image: result.secure_url,
+                        vehicleCreated
                     });
                 }
                 else {
